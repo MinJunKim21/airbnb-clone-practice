@@ -3,3 +3,15 @@ export interface ExploreData {
   location: string;
   distance: string;
 }
+
+export interface CardsData {
+  img: string;
+  title: string;
+}
+
+export interface ILargeCard {
+  img: string;
+  title: string;
+  description: string;
+  buttonText: string;
+}
