@@ -15,3 +15,14 @@ export interface ILargeCard {
   description: string;
   buttonText: string;
 }
+
+export interface ISearchResults {
+  img: string;
+  location: string;
+  description: string;
+  star: number;
+  price: string;
+  total: string;
+  long: number;
+  lat: number;
+}
