@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.2.1",
     "@heroicons/react": "^1.0.6",
     "@types/react-date-range": "^1.4.3",
     "@types/react-datepicker": "^4.4.2",
