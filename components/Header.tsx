@@ -101,7 +101,7 @@ function Header({ placeholder }: IPlaceholder) {
             <UsersIcon className="h-5" />
             <input
               value={noOfGuests}
-              onChange={(e) => setNoOfGuests(e.target.value)}
+              onChange={(e) => setNoOfGuests(Number(e.target.value))}
               type="number"
               min={1}
               className="w-12 pl-2 text-lg outline-none text-red-400 "
