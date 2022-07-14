@@ -11,7 +11,7 @@ interface Props {
 
 function search({ searchResults }: Props) {
   const router = useRouter();
-  const { location, startDate, endDate, noOfGuests } = router.query;
+  const { location, startDate, endDate, noOfGuests }: any = router.query;
 
   const formattedStartDate = format(new Date(startDate), 'dd MMMM');
   const formattedEndDate = format(new Date(endDate), 'dd MMMM');
