@@ -1,5 +1,7 @@
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import Head from 'next/head';
 import { title } from 'process';
+import { useRef, useState } from 'react';
 import Banner from '../components/Banner';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -14,6 +16,22 @@ interface Props {
 }
 
 export default function Home({ exploreData, cardsData }: Props) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const [isMoved, setIsMoved] = useState(false);
+
+  const handleClick = (direction: string) => {
+    setIsMoved(true);
+    if (rowRef.current) {
+      const { scrollLeft, clientWidth } = rowRef.current;
+
+      const scrollTo =
+        direction === 'left'
+          ? scrollLeft - clientWidth
+          : scrollLeft + clientWidth;
+      rowRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div>
       <Head>
@@ -40,14 +58,28 @@ export default function Home({ exploreData, cardsData }: Props) {
             ))}
           </div>
         </section>
-
+        {/* 시작 */}
         <section>
           <h2 className="text-4xl font-semibold py-8">Live Anywhere</h2>
-
-          <div className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3">
-            {cardsData?.map(({ img, title }) => (
-              <MediumCard key={img} img={img} title={title} />
-            ))}
+          <div className="group relative ">
+            <ChevronLeftIcon
+              className={`absolute top-0 bottom-8 left-0 z-40 m-auto h-16 w-16 cursor-pointer opacity-30 transition hover:scale-125 group-hover:opacity-80 ${
+                !isMoved && 'hidden'
+              }`}
+              onClick={() => handleClick('left')}
+            />
+            <div
+              ref={rowRef}
+              className="flex space-x-3 overflow-scroll scrollbar-hide p-3 -ml-3"
+            >
+              {cardsData?.map(({ img, title }) => (
+                <MediumCard key={img} img={img} title={title} />
+              ))}
+            </div>
+            <ChevronRightIcon
+              className="absolute top-0 bottom-8 right-0 z-40 m-auto h-16 w-16 cursor-pointer opacity-30 transition hover:scale-125 group-hover:opacity-80"
+              onClick={() => handleClick('right')}
+            />
           </div>
         </section>
 
