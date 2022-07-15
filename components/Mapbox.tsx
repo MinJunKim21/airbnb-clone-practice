@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Map, { Marker, Popup } from 'react-map-gl';
 import getCenter from 'geolib/es/getCenter';
 import { ISearchResults } from '../typings';
-import ReactMapGL from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 interface Props {
