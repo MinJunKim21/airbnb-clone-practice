@@ -1,14 +1,30 @@
 import { useState } from 'react';
 import Map from 'react-map-gl';
+import getCenter from 'geolib/es/getCenter';
+import { ISearchResults } from '../typings';
+import { stringify } from 'querystring';
 
-function Mapbox() {
+interface Props {
+  searchResults: ISearchResults[];
+}
+
+function Mapbox({ searchResults }: Props) {
+  //search result objecte들을  { latitude: 52.516272, longitude: 13.377722 } 이런 타입의 object들로 바꾸기
+  const coordinates = searchResults.map((result) => ({
+    longitude: result.long,
+    latitude: result.lat,
+  }));
+
+  const center = getCenter(coordinates);
+
   const [viewport, setViewport] = useState({
     width: '100%',
     height: '100%',
-    longitude: -100,
-    latitude: 40,
+    longitude: center.longitude,
+    latitude: center.latitude,
     zoom: 11,
   });
+
   return (
     <Map
       mapboxAccessToken={process.env.mapbox_key}

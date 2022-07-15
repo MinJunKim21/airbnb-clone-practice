@@ -40,7 +40,17 @@ function search({ searchResults }: Props) {
 
           <div className="flex flex-col">
             {searchResults.map(
-              ({ img, location, title, description, star, price, total }) => (
+              ({
+                img,
+                location,
+                title,
+                description,
+                star,
+                price,
+                total,
+                long,
+                lat,
+              }) => (
                 <InfoCard
                   key={img}
                   img={img}
@@ -50,6 +60,8 @@ function search({ searchResults }: Props) {
                   star={star}
                   price={price}
                   total={total}
+                  long={long}
+                  lat={lat}
                 />
               )
             )}
@@ -57,7 +69,7 @@ function search({ searchResults }: Props) {
         </section>
 
         <section className="hidden xl:inline-flex xl:min-w-[600px]">
-          <Mapbox />
+          <Mapbox searchResults={searchResults} />
         </section>
       </main>
 
