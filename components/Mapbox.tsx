@@ -15,7 +15,7 @@ function Mapbox({ searchResults }: Props) {
     latitude: result.lat,
   }));
 
-  const center = getCenter(coordinates);
+  const center: any = getCenter(coordinates);
 
   const [viewport, setViewport] = useState({
     width: '100%',
