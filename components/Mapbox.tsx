@@ -10,8 +10,8 @@ interface Props {
 }
 
 function Mapbox({ searchResults }: Props) {
-  const [selectedLocation, setSelectedLocation] = useState<ISearchResults>({});
-
+  const [selectedLocation, setSelectedLocation] = useState<ISearchResults>();
+  const [showPopup, setShowPopup] = useState(true);
   //search result objecte들을  { latitude: 52.516272, longitude: 13.377722 } 이런 타입의 object들로 바꾸기
   const coordinates = searchResults.map((result) => ({
     longitude: result.long,
@@ -40,14 +40,24 @@ function Mapbox({ searchResults }: Props) {
           <Marker longitude={result.long} latitude={result.lat}>
             <p
               role="img"
-              onClick={() => setSelectedLocation(result)}
-              className="cursor-pointer text-2xl animate-bounce"
+              onClick={() => (setShowPopup(true), setSelectedLocation(result))}
+              className="cursor-pointer text-2xl "
               aria-label="push-location"
             >
               ⭐️
             </p>
           </Marker>
-          {selectedLocation.long === result.long ? (
+          {showPopup && (
+            <Popup
+              longitude={result.long}
+              latitude={result.lat}
+              anchor="bottom"
+              onClose={() => setShowPopup(false)}
+            >
+              <div className="text-xs">{result.title}</div>
+            </Popup>
+          )}
+          {/* {selectedLocation === result ? (
             <Popup
               onClose={() => setSelectedLocation({})}
               closeOnClick={true}
@@ -58,7 +68,7 @@ function Mapbox({ searchResults }: Props) {
             </Popup>
           ) : (
             false
-          )}
+          )} */}
         </div>
       ))}
     </Map>
