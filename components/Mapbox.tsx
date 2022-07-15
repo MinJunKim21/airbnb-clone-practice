@@ -9,6 +9,19 @@ interface Props {
   searchResults: ISearchResults[];
 }
 
+interface ICenter {
+  longitude: number;
+  latitude: number;
+}
+
+interface IViewport {
+  width?: string;
+  height?: string;
+  longitude: any;
+  latitude: any;
+  zoom: number;
+}
+
 function Mapbox({ searchResults }: Props) {
   const [selectedLocation, setSelectedLocation] = useState<ISearchResults>();
   const [showPopup, setShowPopup] = useState(true);
@@ -18,9 +31,9 @@ function Mapbox({ searchResults }: Props) {
     latitude: result.lat,
   }));
 
-  const center = getCenter(coordinates);
+  const center: any = getCenter(coordinates);
 
-  const [viewport, setViewport] = useState({
+  const [viewport, setViewport] = useState<IViewport>({
     width: '100%',
     height: '100%',
     longitude: center.longitude,
